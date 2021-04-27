@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 3.使用子组件 -->
+			<App></App>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			// 插槽 留坑
+			// props 验证规则
+			// 组件的生命周期
+			// UI库 element-ui
+			// **** 如何设计组件? *****
+			// provide
+			// inject
+			// 父组件 provide来提供变量,然后再子组件中通过inject来注入变量.无论组件嵌套多深
+			// 中央事件总线 bus
+			Vue.component('B', {
+				data() {
+					return {
+						count: 0
+					}
+				},
+				inject: ['msg'],
+				created() {
+					console.log(this.msg);
+
+				},
+				template: `
+                <div>
+                    {{msg}}
+                </div>
+            `,
+			})
+
+			Vue.component('A', {
+				data() {
+					return {
+
+					}
+				},
+				created() {
+					console.log(this.$parent); //VueComponent
+					console.log(this.$parent.title); //老爹
+					console.log(this.$parent.$parent); //Vue 
+					console.log(this.$children); //[]
+					console.log(this); //VueComponent 
+
+
+				},
+				template: `
+                <div>
+                     <B></B>
+                </div>
+            `
+			})
+
+
+			const App = {
+				data() {
+					return {
+						title: "老爹"
+					}
+				},
+				provide() {
+					return {
+						msg: "老爹的数据"
+					}
+				},
+				template: `
+                <div>
+                    <A></A>
+                </div>
+            `,
+			}
+			new Vue({
+				el: '#app',
+				data: {
+
+				},
+				components: {
+					// 2.挂载子组件
+					App
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

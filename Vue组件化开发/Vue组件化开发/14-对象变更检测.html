@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>
+            {{user.name}},{{user.age}},{{user.phone}}
+            <button @click='handlerAdd'>添加属性</button>
+        </h3>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // Vue不能检测对象属性的添加和删除
+        new Vue({
+            el: "#app",
+            data: {
+                user: {}
+            },
+            methods: {
+                handlerAdd() {
+                    // Vue.$set(object,key,value)添加响应式属性
+                    // this.user.age = 20;
+                    // this.$set(this.user,'age',20);
+
+                    // 添加多个响应式属性
+                    this.user = Object.assign({}, this.user, {
+                        age: 20,
+                        phone: 18511803134
+                    })
+                }
+            },
+            created() {
+                setTimeout(() => {
+                    this.user = {
+                        name: "张三"
+                    }
+                }, 1250);
+            }
+        })
+
+    </script>
+</body>
+
+</html>

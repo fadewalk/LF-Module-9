@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3.使用子组件 -->
+        <App></App>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 全局组件
+
+        // 父传子:通过prop来进行通信
+
+        // 1.在子组件中声明props接收在父组件挂载的属性
+        // 2.可以在子组件的template中任意使用
+        // 3.在父组件绑定自定义的属性
+        Vue.component('Child', {
+            template: `
+                <div>
+                    <h3>我是一个子组件</h3>   
+                    <h4>{{childData}}</h4>
+                </div>
+            `,
+            props: ['childData']
+        })
+
+        const App = {
+            data() {
+                return {
+                    msg: '我是父组件传进来的值'
+                }
+            },
+            template: `
+                <div>
+                    <Child :childData = 'msg'></Child>
+                </div>
+            `,
+            computed: {
+
+            }
+        }
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                // 2.挂载子组件
+                App
+            }
+
+        })
+    </script>
+</body>
+
+</html>

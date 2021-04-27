@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3.使用子组件 -->
+        <App></App>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // App组件 html+css+js
+
+        // 创建全局组件 第一个是组件名 第二个是配置
+        // 只要创建全局组件 可以在任意地方使用  (template)
+        Vue.component('Vheader', {
+            template: `
+                <div>
+                    我是导航组件
+                </div>
+            `
+        })
+        Vue.component('Vaside', {
+            template: `
+                <div>
+                    我是侧边栏
+                </div>
+            `
+        })
+        const Vbtn = {
+            template: `
+                <button>按钮</button>
+            `
+        }
+
+        const Vcontent = {
+            data() {
+                return {
+
+                }
+            },
+            template: `
+                <div>
+                    我是内容组件 
+                    <Vbtn></Vbtn>
+                    <Vbtn></Vbtn>
+                    <Vbtn></Vbtn>
+                    <Vbtn></Vbtn>
+                </div>
+            `,
+            components: {
+                Vbtn
+            }
+        }
+
+
+        // 使用局部组件的打油诗: 建子 挂子 用子
+        // 1.创建组件
+        // 注意:在组件中这个data必须是一个函数,返回一个对象
+        const App = {
+            data() {
+                return {
+                    msg: '我是App组件'
+                }
+            },
+            components: {
+                Vcontent
+            },
+            template: `
+                <div>
+                    <Vheader></Vheader>
+                    <div>
+                        <Vaside />  
+                        <Vcontent />
+                    </div>
+                </div>
+            `,
+            methods: {
+                handleClick() {
+                    this.msg = '学习局部组件';
+                }
+
+            },
+            computed: {
+
+            }
+        }
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                // 2.挂载子组件
+                App
+            }
+
+        })
+    </script>
+</body>
+
+</html>

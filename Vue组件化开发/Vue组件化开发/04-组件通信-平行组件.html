@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3.使用子组件 -->
+        <App></App>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const bus = new Vue();
+        // 中央事件总线 bus
+        Vue.component('B', {
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: `
+                <div>{{count}}</div>
+            `,
+            created() {
+                // $on 绑定事件 add 到 bus
+                bus.$on('add', (n) => {
+                    this.count += n;
+                })
+            }
+        })
+
+        Vue.component('A', {
+            data() {
+                return {
+
+                }
+            },
+            template: `
+                <div>
+                 <button @click='handleClick'>加入购物车</button> 
+                    
+                </div>
+            `,
+            methods: {
+                handleClick() {
+                    // 触发绑定的函数 // $emit 触发事件   触发bus上面的add 函数
+                    bus.$emit('add', 1);
+                }
+            }
+        })
+
+
+        const App = {
+            data() {
+                return {
+
+                }
+            },
+
+            template: `
+                <div>
+                    <A></A>
+                    <B></B>
+                </div>
+            `,
+        }
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                // 2.挂载子组件
+                App
+            }
+
+        })
+    </script>
+</body>
+
+</html>

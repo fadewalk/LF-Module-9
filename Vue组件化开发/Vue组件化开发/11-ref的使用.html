@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 3.使用子组件 -->
+			<App></App>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			Vue.component('Test', {
+				data() {
+					return {
+						msg: "小马哥",
+					}
+				},
+				template: `
+                <div>
+                    <h3>{{msg}}</h3>    
+                </div>
+            `,
+			})
+
+			const App = {
+				data() {
+					return {}
+				},
+				mounted() {
+					// 1.如果给标签添加ref,获取的就是真实的DOM节点
+					// 2.如果给子组件添加ref,获取的是当前子组件对象
+					console.log(this.$refs.btn);
+					// 加载页面,自动获取焦点
+					this.$refs.input.focus();
+					console.log(this.$refs.test);
+
+				},
+				components: {},
+				template: `
+                 <div>
+                    <Test ref='test'></Test>
+                    <input type="text" ref='input'/>
+                    <button ref='btn'>改变生死</button>
+                </div>
+            `,
+			}
+			new Vue({
+				el: '#app',
+				data: {
+
+				},
+				components: {
+					App
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

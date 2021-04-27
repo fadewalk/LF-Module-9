@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mixin的应用</title>
+</head>
+
+<body>
+    <div id='app'>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //    一个是模态框 一个提示框
+        // 它们看起来不一样，用法不一样，但是逻辑一样（切换boolean）
+        /* 
+        // 全局的mixin 要格外小心 因为每个组件实例创建是，它都会被调用
+        Vue.mixin({
+
+        })
+        
+         */
+        const toggleShow = {
+            data() {
+                return {
+                    isShow: false
+                }
+            },
+            methods: {
+                toggleShow() {
+                    this.isShow = !this.isShow
+                }
+            }
+        }
+
+        const Modal = {
+            template: `
+                <div v-if='isShow'><h3>模态框组件</h3></div>
+            `,
+            // 局部的mixin
+            mixins: [toggleShow]
+
+        }
+
+        const ToolTip = {
+            template: `
+            <div v-if='isShow'>
+                <h2>提示框组件</h2>
+            </div>
+         `,
+            mixins: [toggleShow]
+        }
+        new Vue({
+            el: "#app",
+            data: {
+
+            },
+            components: {
+                Modal,
+                ToolTip
+            },
+            template: `
+                <div>
+                    <button @click='handleModel'>模态框</button>
+                    <button @click='handleToolTip'>提示框</button>
+                    <Modal ref='modal'></Modal>
+                    <ToolTip ref='toolTip'></ToolTip>
+                </div>
+            `,
+            methods: {
+                handleModel() {
+                    this.$refs.modal.toggleShow();
+                },
+                handleToolTip() {
+                    this.$refs.toolTip.toggleShow();
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>

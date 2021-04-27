@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<h3>{{message}}</h3>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: '小马哥'
+				}
+			})
+			vm.message = 'new Message';
+			console.log("changed: ",vm.$el.textContent);
+			// 为了数据变化之后等待vue完成更新DOM,可以在数据变化之后立即使用Vue.nextTick 在当前的回调函数中能获取最新的DOM
+			Vue.nextTick(() => {
+				console.log("nextTick:",vm.$el.textContent);
+			})
+		</script>
+
+
+	</body>
+
+</html>

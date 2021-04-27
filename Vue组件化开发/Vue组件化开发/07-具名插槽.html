@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 3.使用子组件 -->
+			<App></App>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			// 只要匹配到slot标签的name值 template中的内容就会被插入到这个槽中
+			Vue.component('MBtn', {
+				template: `
+                <button>
+                     <slot name='submit'></slot>
+                     <slot name='login'></slot>
+                     <slot name='register'></slot>
+                </button>
+            `
+			})
+
+			const App = {
+				data() {
+					return {
+						title: "老爹"
+					}
+				},
+
+				template: `
+                <div>
+                     <m-btn>
+                         <template slot='submit'>
+                             提交
+                         </template>
+                     </m-btn>
+                    
+                    <m-btn>
+                        <template slot='login'>
+                            <a href="#">登录</a>
+                        </template>
+                    </m-btn>
+                   
+                    <m-btn>
+                        <template slot='register'>
+                            注册
+                        </template>
+                    </m-btn>
+										<m-btn>
+										    <test slot='register'>
+										        test
+										    </test>
+										</m-btn>
+                </div>
+            `,
+			}
+			new Vue({
+				el: '#app',
+				data: {
+
+				},
+				components: {
+					// 2.挂载子组件
+					App
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

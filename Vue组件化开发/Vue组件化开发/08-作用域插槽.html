@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3.使用子组件 -->
+        <App></App>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 已经开发了一个待办事项列表的组件,很多模块都在
+        // A B
+        // 1.之前数据格式和引用接口不变,正常显示
+        // 2.新功能模块增加对勾
+        const todoList = {  // A模块需要CheckBox B模块不需要CheckBox 
+            data() {
+                return {
+
+                }
+            },
+            props: {
+                todos: Array,
+                defaultValue: []
+            },
+            template: `
+        <ul>
+            <li v-for='item in todos' :key='item.id'>
+                <slot :itemValue = 'item'>
+                   
+                </slot>
+                 {{item.title}}
+               
+            </li>
+        </ul>
+        `
+        }
+
+
+
+        const App = {
+            data() {
+                return {
+                    todoList: [{
+                        title: '大哥你好么',
+                        isComplate: true,
+                        id: 1
+                    },
+                    {
+                        title: '小弟我还行',
+                        isComplate: false,
+                        id: 2
+                    },
+                    {
+                        title: '你在干什么',
+                        isComplate: false,
+                        id: 3
+                    },
+                    {
+                        title: '抽烟喝酒烫头',
+                        isComplate: true,
+                        id: 4
+                    }
+                    ]
+                }
+            },
+            components: {
+                todoList
+            },
+            template: `
+            	  <todoList :todos='todoList'>
+                     <template v-slot='data'> <!--data 是传过来的插槽对象，随便命名-->
+                        <input type="checkbox" v-model='data.itemValue.isComplate' />
+                    </template>
+            	  </todoList>
+        `,
+        }
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                App
+            }
+
+        })
+    </script>
+</body>
+
+</html>

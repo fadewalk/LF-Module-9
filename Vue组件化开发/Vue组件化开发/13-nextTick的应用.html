@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+        <App></App>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        /* 
+        需求:
+            在页面拉取一个接口，这个接口返回一些数据，这些数据是这个页面的一个浮层组件要依赖的，
+            然后我在接口一返回数据就展示了这个浮层组件，展示的同时，
+            上报一些数据给后台（这些数据是父组件从接口拿的），
+            这个时候，神奇的事情发生了，虽然我拿到数据了，但是浮层展现的时候，
+            这些数据还未更新到组件上去,上报失败
+        */
+        const Pop = {
+            data() {
+                return {
+                    isShow: false
+                }
+            },
+            props: {
+                name: {
+                    type: String,
+                    default: ''
+                },
+            },
+            template: `
+                <div v-if='isShow'>
+                    {{name}}
+                </div>
+            `,
+            methods: {
+                show() {
+                    this.isShow = true; //弹窗组件展示
+                    console.log(this.name);
+
+                }
+            },
+        }
+        const App = {
+            data() {
+                return {
+                    name: ''
+                }
+            },
+            created() {
+                //    模拟异步请求
+                setTimeout(() => {
+                    // 数据更新
+                    this.name = '小马哥';
+										// this.$refs.pop.show(); // 触发ref 组件的方法。但是上报失败
+                    this.$nextTick(() => {
+                        this.$refs.pop.show();
+                    })
+                }, 1000);
+            },
+            components: {
+                Pop
+            },
+            template: `<pop ref='pop' :name='name'></pop>`
+        }
+        const vm = new Vue({
+            el: '#app',
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+
+</html>
