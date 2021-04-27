@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{price | myPrice('¥')}}</h3>
+        <h3>{{msg|myReverse}}</h3>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 创建全局过滤器
+        Vue.filter('myReverse', (val) => {
+            return val.split('').reverse().join('');
+        })
+        // 为数据添油加醋
+        // ¥  $20
+        new Vue({
+            el: '#app',
+            data: {
+                price: 10,
+                msg: 'hello 过滤器'
+            },
+            // 局部过滤器
+            filters: {
+                myPrice: function (price, args) { //  传过来的price
+                    return args + price;
+
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

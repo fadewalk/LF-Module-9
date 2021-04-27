@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on事件绑定</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .active {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <div>
+            <ul>
+                <li v-for='(item,index) in menus' :key='item.id'>
+                    <h3>{{index}} - id:{{item.id}} 菜名:{{item.name}}</h3>
+                </li>
+            </ul>
+            <ol>
+                <li v-for="(val,key) in obj" :key='key'>
+                    {{key}}---{{val}}
+                </li>
+            </ol>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                menus: [
+                    { id: 1, name: '大腰子' },
+                    { id: 2, name: '烤鸡翅' },
+                    { id: 3, name: '烤韭菜' },
+                    { id: 4, name: '烤大蒜' },
+                ],
+                obj: {
+                    title: 'hello 循环',
+                    author: '小马哥'
+                }
+            },
+            methods: {
+            },
+        })
+    </script>
+</body>
+
+</html>
