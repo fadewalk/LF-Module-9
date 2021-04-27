@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="vue.js"></script>
+	<!-- 1.引入 vue-router的对象 -->
+	<script type="text/javascript" src="./node_modules/vue-router/dist/vue-router.js"></script>
+	<!-- 全局的VueRouter对象   vue-router 还给咱们提供了两个全局的组件 router-link  router-view-->
+	<script type="text/javascript">
+		
+		// 路由范式
+		   // (1)xxxx.html#/user/1         params
+		   // (2)xxxx.html#/user?userId = 2    query
+		// 2.让Vue使用该VueRouter创建
+		Vue.use(VueRouter);
+
+
+		var UserParams = {
+			template:`
+				<div>我是用户1</div>
+			`,
+			created(){
+
+				console.log(this.$route.params.userId);
+
+				// 发送ajax请求
+				console.log(this.$router);
+
+			}
+		};
+		var UserQuery = {
+			template:`
+				<div>我是用户2</div>
+			`,
+			created(){
+
+				console.log(this.$route);
+
+				// 发送ajax请求
+				console.log(this.$router);
+
+			}
+		};
+
+		// 3.创建一个路由对象
+		var router = new VueRouter({
+			// 配置路由对象
+
+			routes:[
+				{
+					// 动态的路由参数 以冒号开头
+					path:'/user/:userId',
+					name:'userp',
+					component:UserParams
+				},
+				{
+					path:'/user',
+					name:'userq',
+					component:UserQuery
+				}
+			]
+
+		});
+		var App = {
+			template:`
+				<div>
+					<!--router-link默认会被渲染成a标签 to属性默认会被渲染成href属性-->
+					<router-link :to="{name:'userp',params:{userId:1}}">用户1</router-link>
+					<router-link :to="{name:'userq',query:{userId:2}}">用户2</router-link>
+			
+					<!--路由组件的出口-->
+
+					<router-view></router-view>
+
+				</div>
+			`
+		};
+
+		new Vue({
+			el:'#app',
+			components:{
+				App
+			},
+			router,
+			template:`<App />`
+		});
+
+
+	</script>
+
+
+
+
+	
+</body>
+</html>

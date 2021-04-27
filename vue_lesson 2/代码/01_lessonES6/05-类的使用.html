@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		/*
+		function Person(name,age){
+			this.name = name;
+			this.age = age;
+		}
+
+		Person.prototype.showName = function(){
+			alert(this.name);
+		};
+	
+		// 使用new关机字来创建对象
+
+		var p = new Person('alex',19);
+		p.showName()
+		*/
+
+
+		// es6中创建对象的方式 使用class
+		class Person{
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			showName(){
+				alert(this.name)
+			}
+
+
+		};
+
+		var p2 = new Person('张三',20);
+		p2.showName();
+	</script>
+</body>
+</html>

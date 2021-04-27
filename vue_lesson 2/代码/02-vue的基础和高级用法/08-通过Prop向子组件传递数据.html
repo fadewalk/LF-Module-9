@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			color: #fff;
+		}
+		.main{
+			width: 100%;
+		}
+		.head{
+			width: 100%;
+			height: 70px;
+			background-color: purple;
+			text-align: center;
+			
+			font-size: 20px;
+			line-height: 70px;
+		}
+		.wrap{
+			width: 100%;
+			height: 1200px;
+
+		}
+		.wrap .aside{
+			width: 30%;
+			height: 1200px;
+			background-color: green;
+			float: left;
+		}
+		.wrap .content{
+			width: 70%;
+			height:1200px;
+			background-color:yellow;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+
+		// 打油诗: 先声子 挂子 用子
+		// 1.先声明头部组件
+		var Vheader = {
+			template:`
+				<header class='head'>
+					<span>{{title}}</span>
+					<span>{{count}}</span>
+					<button @click = 'count+=1'>点击</button>
+				</header>
+			`,
+			data(){
+				return {
+					count: 0
+				}
+			},
+			props:['title'],
+			methods:{
+				
+			}
+		};
+
+		var Vaside = {
+			template:`
+				<div class='aside'>
+					我是侧边栏
+				</div>
+			`
+		};
+		var Vcontent = {
+			template:`
+				<div class='content'>
+					<ul>
+						<li v-for = 'post  in posts' :key = 'post.id'>
+							<h3>我的博客标题:{{post.title}}</h3>
+							<p>我的博客内容:{{post.content}}</p>
+						</li>
+					</ul>
+					<button @click='changeSize'>改变字体大小</button>
+				</div>
+			`,
+			props:['posts'],
+			methods:{
+				changeSize(){
+					// 通过$emit()方法来触发自定义的事件
+					// 第一个参数是自定义的事件名字 第二个参数就是传递的值
+					// this指的vue实例化对象的子类
+					this.$emit('postChangeSize',3)
+				}
+			}
+		};
+
+		var Vmain = {
+			data(){
+				return{
+					fontsize:18
+				}
+			},
+			template:`
+				<div class='main' :style  = '{fontSize:fontsize+"px"}'>
+					
+					<Vheader v-bind:title = 'title'></Vheader>
+					<div class='wrap'>
+						<Vaside />
+						<Vcontent v-bind:posts = "appPosts"  @postChangeSize = 'clickHandler'/>
+					</div>
+				</div>
+
+			`,
+			methods:{
+				clickHandler(value){
+					this.fontsize  = this.fontsize+value;
+				}
+			},
+			components:{
+				// 等价于Vheader:Vheader 2.挂载子
+				Vheader,
+				Vaside,
+				Vcontent
+			},
+			props:['title','appPosts']
+		}
+		
+		new Vue({
+			el:"#app",
+			// 3.使用子组件
+			template:`<Vmain  :title = "text" :appPosts = "posts"/>`,
+			data:{
+				text:"alex是SB",
+				posts:[
+					{id:1,title:"组件中的传值",content:"通过Prop传递数据"},
+					{id:2,title:"组件中的传值2",content:"通过Prop传递数据2"},
+					{id:3,title:"组件中的传值3",content:"通过Prop传递数据3"},
+
+				]
+			
+			},
+			components:{
+				// 2.挂载子组件  key表示组件名 value:组件对象
+				Vmain:Vmain
+			}
+		});
+	</script>
+	
+</body>
+</html>

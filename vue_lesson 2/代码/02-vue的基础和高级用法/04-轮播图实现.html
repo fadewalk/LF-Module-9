@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		ul{
+			list-style: none;
+			overflow: hidden;
+			width: 400px; 
+		}
+		ul li{
+			float: left;
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			background-color: purple;
+			color: #fff;
+			text-align: center;
+		}
+		ul li.active{
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="slider">
+		
+		<img :src='currentImgSrc' alt="">
+		<ul>
+			<li v-for = '(item,index) in imgArr' :class="{active:currentIndex==index}" @click='clickHandler(index)'>
+				{{ index +1 }}
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		// 数据驱动视图
+
+		var imgArr = [
+			{id:1,imgSrc:'./images/1.png'},
+			{id:2,imgSrc:'./images/2.png'},
+			{id:3,imgSrc:'./images/3.png'},
+			{id:4,imgSrc:'./images/4.png'}
+
+		];
+		new Vue({
+			el:'#slider',
+			template:``,
+			data(){
+				return{
+					imgArr:imgArr,
+					currentIndex:0,
+					currentImgSrc:'./images/1.png'
+				}
+			},
+			methods:{
+				clickHandler(index){
+					this.currentIndex = index;
+					this.currentImgSrc = this.imgArr[index].imgSrc;
+				}
+			}
+		});
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.box{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		.isGreen{
+			width: 300px;
+			height: 200px;
+			background-color: green;
+		}
+		.active{
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h3>{{msg}}</h3>
+		<!-- <div class="box" v-on:click = 'count+=1'>{{count}}</div> -->
+		<!-- <div class="box" v-on:click = 'isShow = false' v-if='isShow'></div> -->
+
+		<!-- <div class="box" v-on:click = 'showHanlder()' v-if='isShow'></div> -->
+		<button  v-on:click='showHanlder'>{{btnText}}</button>
+		<div class="box"  v-if='isShow'></div>
+
+		<div class="isGreen" v-bind:class = '{active:isYellow}'></div>
+		<button v-on:click='changeColor'>切换</button>
+
+		<!-- v-if 和v-on 来实现页面中DOM的创建和销毁 -->
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript">
+		
+		var app = new Vue({
+			el:"#app",
+			template:``,
+			// data在Vue实例化中可以是一个对象,也可以是一个函数,但是在组件中,data必须是一个函数 函数内容一定return 一个对象
+			// 数据驱动视图
+			data:function () {
+				return {
+					msg:'事件处理',
+					count:0,
+					isShow:true,
+					btnText:'隐藏',
+					isYellow:false
+				}
+			},
+			// 在vue中所有的事件都声明methods
+			methods:{
+				showHanlder(){
+					console.log(this);
+					// this.isShow = false;
+
+					// if (this.isShow) {
+					// 	this.isShow = false;
+					// 	this.btnText = '显示';
+					// }else{
+					// 	this.isShow = true;
+					// 	this.btnText = '隐藏';
+					// }
+
+					this.isShow = !this.isShow
+				},
+				changeColor(){
+					this.isYellow = !this.isYellow;
+				}
+			}
+
+		});
+	</script>
+	
+</body>
+</html>

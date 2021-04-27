@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+  
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model = 'price'>
+        <h3>{{ price | currentPrice}}</h3>
+        <h4>{{msg | reverse}}</h4>
+    </div>
+    <script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript">
+
+    // 注册全局的过滤器
+    Vue.filter('reverse',function(value) {
+        
+        return value.split('').reverse().join('');
+    })
+   
+
+    new Vue({
+        el: '#app',
+        data() {
+            return{
+                price:0,
+                msg:"hello luffy"
+            }
+        },
+        // 局部过滤器  在当前 组件中声明过滤器
+        filters:{
+            currentPrice:function (value) {
+                // 参数1就是纯涤的元数据
+                console.log(value);
+                return '$' + value;
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

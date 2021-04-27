@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        ul li {
+            margin: 30px 20px;
+            padding: 10px;
+        }
+        ul li.active{
+            background-color: #20FFFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="music">
+        <audio :src="currentSrc" controls autoplay></audio>
+        <ul>
+            <li v-for = '(item,index) in musics' @click = 'clickHandler(index)' :class = '{active:currentIndex == index}'>
+            	<h2>{{item.id}}--歌曲为:{{item.name}}</h2>
+            	<p>歌手:{{item.author}}</p>
+            </li>
+         
+        </ul>
+    </div>
+    <script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript">
+    var musicData = [{
+            id: 1,
+            name: '于荣光 - 少林英雄',
+            author: '于荣光',
+            songSrc: './static/于荣光 - 少林英雄.mp3'
+        },
+        {
+            id: 2,
+            name: 'Joel Adams - Please Dont Go',
+            author: 'Joel Adams',
+            songSrc: './static/Joel Adams - Please Dont Go.mp3'
+        },
+        {
+            id: 3,
+            name: 'MKJ - Time',
+            author: 'MKJ',
+            songSrc: './static/MKJ - Time.mp3'
+        },
+        {
+            id: 4,
+            name: 'Russ - Psycho (Pt. 2)',
+            author: 'Russ',
+            songSrc: './static/Russ - Psycho (Pt. 2).mp3'
+        }
+    ];
+    new Vue({
+        el: '#music',
+        data() {
+            return {
+            	musics:musicData,
+                   currentIndex:0
+            	// musicSrc:'./static/于荣光 - 少林英雄.mp3'
+            }
+        },
+        methods:{
+        	clickHandler(index){
+        		// alert(index);
+                this.currentIndex = index;
+        		
+        	}
+        },
+        computed:{
+        		currentSrc(){
+                    // 监听了两个属性 musics  currentIndex
+        			return  this.musics[this.currentIndex].songSrc;
+        		}
+        },
+        template: ``
+    });
+    </script>
+</body>
+
+</html>

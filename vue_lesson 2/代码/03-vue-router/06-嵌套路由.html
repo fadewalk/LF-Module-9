@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript" src="vue.js"></script>
+    <!-- 1.引入 vue-router的对象 -->
+    <script type="text/javascript" src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <!-- 全局的VueRouter对象   vue-router 还给咱们提供了两个全局的组件 router-link  router-view-->
+    <script type="text/javascript">
+    // 嵌套路由：
+    // 需求：进入首页之后 点击 音乐 /home/music	 电影 /home/movie
+    Vue.use(VueRouter);
+
+
+    var Home = {
+        template: `
+				<div>
+					<br />
+
+					<router-link to = '/home/music'>音乐</router-link>
+					<router-link to = '/home/movie'>电影</router-link>
+						
+					<!--子路由组件的出口-->
+					<router-view></router-view>
+					
+				</div>
+			`
+    };
+
+    var Music = {
+        template: `
+				<div>我是音乐</div>
+
+			`
+    };
+    var Movie = {
+        template: `
+				<div>我是电影</div>
+
+			`
+    };
+
+    // 3.创建一个路由对象
+    var router = new VueRouter({
+        // 配置路由对象
+
+        routes: [{
+
+                path: '/',
+                // redirect:{name:'home'}
+                redirect: '/home'
+            },
+            {
+                // 动态的路由参数 以冒号开头
+                path: '/home',
+                // name:'home',
+                component: Home,
+                children: [
+                    // 动态路由匹配 表示你的子组件中的结构是不同的
+
+                    // 当访问/home时，Home组件的出口是不会渲染任何内容，这是因为没有匹配到合适的子路由
+                    {
+                        path: '',
+                        component: Music
+                    },
+                    {
+                        path: 'music',
+                        component: Music,
+
+                    },
+                    {
+                        path: 'movie',
+                        component: Movie
+
+                    }
+
+                ]
+            }
+        ]
+
+    });
+    var App = {
+        template: `
+				<div>
+					<router-link to = "/home">首页</router-link>
+					<!--路由组件的出口-->
+
+					<router-view></router-view>
+
+				</div>
+			`
+    };
+
+    new Vue({
+        el: '#app',
+        components: {
+            App
+        },
+        router,
+        template: `<App />`
+    });
+    </script>
+</body>
+
+</html>

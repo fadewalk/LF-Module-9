@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript">
+    	
+  
+
+
+    var App = {
+        data(){
+            return{
+                isShow:false
+            }
+        },
+        template: `<div>
+        				<input type="text"  v-if = 'isShow' ref = 'fos'/>	
+			</div>`,
+        mounted() {
+            // vue实现响应式并不是数据发生变化之后DOM立刻发生变化，而是按一定的策略进行DOM的更新
+
+            // $nextTick 是在下次Dom更新循环结束之后执行的延迟回调，在修改数据之后使用$nextTick ，则可以在回调中获取更新之后的DOM
+            this.isShow = true;
+
+
+            this.isShow = false;
+            this.isShow = true;
+            console.log(   this.$refs.fos)
+           // focus()
+            this.$nextTick(function() {
+                // 获取更新之后的DOM
+                  this.$refs.fos.focus()
+            });
+
+        }
+    }
+   
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            }
+        },
+        template: `<App />`,
+        components: {
+            App
+        }
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="./node_modules/axios/dist/axios.js"></script>
+
+	<!-- vue和axios都是全局的对象  未来 axios会成为局部作用域-->
+	<script type="text/javascript">
+
+
+		// 挂载 Vue.prototype.$axios = axios; 使用插件
+		Vue.prototype.$axios = axios;
+		// Vue.use(axios); 这个不要记了 删掉
+		// 配置公共的url
+		axios.defaults.baseURL = 'http://127.0.0.1:8800';
+		var App = {
+			data(){
+				return {
+					msg:'',
+					datas:[]
+				}
+			},
+			template:`
+				<div>
+					<button @click = 'sendAjax'>发Get</button>
+					<div v-html = 'msg'></div>
+					<button @click = 'sendAjaxByPost'>发post请求</button>
+					{{datas}}
+				</div>
+			`,
+			methods:{
+				sendAjax(){
+					// 发送get请求
+					this.$axios.get('/')
+					.then(res=>{
+						console.log(res.data);
+						console.log(typeof res.data);
+						this.msg = res.data;
+
+					})
+					.catch(err=>{
+						console.log(err);
+					})
+
+				},
+				sendAjaxByPost(){
+					// var _this = this;
+					var params = new URLSearchParams();
+					params.append('name','alex');
+					this.$axios.post('/create',params).then( (res)=>{
+						
+						// 解决this的指向问题，在vue中用函数 建议使用箭头函数
+						console.log(this);
+						console.log(res);
+						// 初学者容易犯的错
+						// _this.datas = res;
+						this.datas = res;
+
+					}).catch(err=>{
+						console.log(err);
+					})
+				}
+			}
+		}
+		
+		new Vue({
+			el:"#app",
+			data(){
+				return {
+
+				}
+			},
+			components:{
+				App
+			},
+			template:`<App />`
+		})
+
+	</script>
+	
+</body>
+</html>

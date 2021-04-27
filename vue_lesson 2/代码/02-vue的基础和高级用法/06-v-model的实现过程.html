@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<!-- v-model这个指令很好理解,其实它就是一个语法糖 (甜甜的) 它是oninput事件和绑定value的实现 -->
+		<input type="text"  :value = 'text' @input = 'valueChange'>
+		<h3>{{ text }}</h3>
+
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+		
+		new Vue({
+			el:"#app",
+			template:``,
+			data(){
+				return {
+					text:'alex'
+				}
+			},
+			methods:{
+				valueChange(event){
+					console.log(event.target.value);
+					this.text = event.target.value	
+				}
+			}
+		});
+	</script>
+	
+</body>
+</html>

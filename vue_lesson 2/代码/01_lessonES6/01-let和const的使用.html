@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		
+		/*
+
+		// es5中声明变量 使用的var
+		 var a;
+
+		console.log(a);
+		// 变量提升
+		 a= 10;
+
+		// var a;
+		// a = 10;
+		console.log(a);
+		*/
+		// var  a;
+		/*
+		// 1.因为变量提升 导致 var声明的变量属于全局作用域 2.var声明的变量存在覆盖现象
+		console.log(a);
+		{
+			var a  = 20;
+			var a = 30
+
+		}
+		console.log(a);
+		*/
+		/*
+		var i;
+		for(i = 0; i < 10;i++){
+
+		}
+
+		console.log(i);
+		*/
+
+		/*
+		var a = [];
+
+		// let 声明的变量属于局部作用域 
+
+		for(let i = 0; i < 20; i++){
+			a[i] = function() {
+				console.log(i);
+			}
+		};
+
+		a[10]();
+		*/
+
+		// console.log(a);
+		/*
+		{
+			let  a  =  30;
+			let a  = 40;
+			//  Identifier 'a' has already been declared
+		}
+		*/
+
+		// console.log(a);
+
+		// 1.const声明的常量,常量一旦声明不可修改 2.局部作用域
+		{
+		const pai = 3.145926;
+		// pai = 20;
+		}
+		console.log(pai);
+	</script>
+
+
+</body>
+</html>

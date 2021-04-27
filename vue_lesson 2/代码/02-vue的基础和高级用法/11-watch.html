@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model='myName'>
+		<h3>{{ myName}}</h3>
+		<button @click='clickHandler'>修改</button>
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#app',
+			template:``,
+			data(){
+				return {
+					myName:'',
+					firtName:'wusir'
+				}
+			},
+			methods:{
+				clickHandler(){
+					this.myName = 'alex';
+				}
+			},
+			watch:{
+				// 检测单个属性 命令式
+				myName:function(value) {
+					console.log(value);
+					if (value === 'alex') {
+						console.log(value +' '+this.firtName+'是sb')
+					}
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>	
+	<div id="app">
+		<App></App>
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript">
+		// 钩子函数
+//  beforeCreate
+// created
+// beforeMount
+// mounted
+// beforeUpdate
+// updated
+// activated
+// deactivated
+// beforeDestroy
+// destroyed 
+	// 创建 销毁
+
+	var Test = {
+		data(){
+			return{
+				msg:"哈哈哈"
+			}
+		},
+		template:`
+			<div>
+				<div>{{msg}}</div>
+				<button @click = 'changeHandler'>修改</button>
+			</div>
+		`,
+		methods:{
+			changeHandler(){
+				this.msg = this.msg + 'alex'
+			}
+		},
+		beforeCreate(){
+			// 组件创建之前
+			console.log(this.msg);
+		},
+		 created(){
+		 	// 组件创建之后
+		 	// 使用该组件，就会触发以上的钩子函数，created中可以操作数据，发送ajax，并且可以实现vue==》页面的影响  应用：发送ajax请求
+		 	console.log(this.msg);
+		 	// this.msg = '嘿嘿黑';
+		 },
+		 beforeMount(){
+		 	// 装载数据到DOM之前会调用
+		 	console.log(document.getElementById('app'));
+		 },
+		  mounted(){
+		  	// 这个地方可以操作DOM
+		 	// 装载数据到DOM之后会调用 可以获取到真实存在的DOM元素，vue操作以后的DOM
+		 	console.log(document.getElementById('app'));
+		 },
+		 beforeUpdate(){
+		 	// 在更新之前，调用此钩子，应用：获取原始的DOM
+		 	console.log(document.getElementById('app').innerHTML);
+		 },
+		 updated(){
+		 	// 在更新之前，调用此钩子，应用：获取最新的DOM
+		 	console.log(document.getElementById('app').innerHTML);
+		},
+		beforeDestroy(){
+			console.log('beforeDestroy');
+		},
+		destroyed(){
+			console.log('destroyed');
+		},
+		activated(){
+			console.log('组件被激活了');
+		},
+		deactivated(){
+			console.log('组件被停用了');
+
+		}
+	}
+
+	var App = {
+		data(){
+			return {
+				isShow : true
+			}
+		},
+		template:`
+			<div>
+				<keep-alive>
+					<Test v-if = 'isShow'></Test>
+				</keep-alive>
+				
+				<button @click = 'changeHandler'>改变组件的生死</button>
+			</div>
+		`,
+		methods:{
+			changeHandler(){
+				this.isShow = !this.isShow;
+			}
+		},
+		components:{
+			Test
+		}
+	}
+	new Vue({
+		el:'#app',
+		template:``,
+		components:{
+			App
+		}
+
+	});
+
+
+	</script>
+	
+</body>
+</html>

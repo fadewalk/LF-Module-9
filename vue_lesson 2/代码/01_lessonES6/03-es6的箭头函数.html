@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		
+		/*
+		普通函数
+		function add(a,b) {
+			return a+b;
+		};
+
+		alert(add(1,2));
+		*/
+		
+
+		/*
+		// 函数对象
+		var add  = function (a,b) {
+			return a+b;
+		};
+
+		alert(add(3,4))
+		*/
+
+		/*
+		var add = (a,b)=>{
+			return a+b;
+		};
+		alert(add(3,7))
+		*/
+
+		/*
+		var person = {
+			name:"alex",
+			age: 20,
+			fav:function () {
+				console.log('喜欢AV');
+				// this指的是当前的对象
+				console.log(this.age);
+			}
+		};
+
+		person.fav();
+		*/
+
+		/*
+		var person = {
+			name:"alex",
+			age: 20,
+			fav: () => {
+				// this的指向发生了改变,指向了定义person的父级对象 window
+				console.log('喜欢AV');
+				// this指的是当前的对象
+				console.log(this);
+			}
+		};
+
+		person.fav();
+		*/
+		/*
+		var person = {
+			name:"alex",
+			age: 20,
+			fav: function () {
+				// this的指向发生了改变,指向了定义person的父级对象 window
+				console.log('喜欢AV');
+				// this指的是当前的对象
+				console.log(this);
+				console.log(arguments[0])
+			}
+		};
+
+		person.fav('哈哈哈');
+		*/
+		var person = {
+			name:"alex",
+			age: 20,
+			fav: (content) =>{
+				// this的指向发生了改变,指向了定义person的父级对象 window
+				console.log('喜欢AV');
+				// this指的是当前的对象
+				console.log(this);
+				// console.log(arguments)
+			}
+		};
+
+		person.fav('哈哈哈');
+
+	</script>
+</body>
+</html>

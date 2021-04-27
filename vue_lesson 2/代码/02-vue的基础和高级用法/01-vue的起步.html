@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<!-- 模板语法 主要的作用是插值{{}}   angualr {{}}   react {}-->
+		<h3>{{ msg }}</h3>
+		<h3>{{ msg+ 'hello'}}</h3>
+		<h4>{{1< 1 ? '真的':'假的'}}</h4>
+		<!-- 可以插入字符串 -->
+		<h5>{{'hello'}}</h5>
+		<p>{{'hello world'.split('').reverse().join('')}}</p>
+		<h3>{{ {name:'role'} }}</h3>
+		<!-- 不能使用if - else -->
+
+		<!-- {{}}模板语法的设计 只是为了简单的运算 -->
+	</div>
+
+	<!-- 1.先引包 -->
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
+
+	<script type="text/javascript">
+		// 小结：
+		// 1.引包 具备Vue对象
+		// 2.启动Vue new Vue(options)
+		// 3.配置options选项对象
+		// 4.el:'目的地' template:"模板"  data:function(){key:value}	
+		// 5.页面中存在该目的地的 目的地同字符串描述，同jq方式一样
+			
+
+
+		
+		// 2.创建vue实例化对象
+
+		var app  = new Vue({
+			// 发生行为的目的地,
+			el:'#app',
+			// 在vue的内部运行机制中，需要根据你传递的字符串进行判断，比如看你传递的字符串是#xxx还是.xxx还是 div元素查找
+			// el:document.getElementById('#app'),使用这种方式更为优化，将元素直接找到，避免vue来进行判断
+			// 装载的模板
+			template:``,
+			// 先声明数据属性
+			data:{
+				// template中要使用的数据
+
+				// 数据驱动视图
+				msg:'hello Vue',
+				a:20
+			}
+		});
+		// app.a = 10;
+		console.log(app);
+
+		console.log(app.$el===document.getElementById('app'));
+
+		// 在vue实例化对象之后,这个对象中属性 前面会有$,主要是跟我们自己定义的属性区分
+
+
+
+
+
+	</script>
+
+</body>
+</html>

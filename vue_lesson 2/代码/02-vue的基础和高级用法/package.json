@@ -1,0 +1,14 @@
+{
+  "name": "vue_lesson",
+  "version": "1.0.0",
+  "description": "这是我的vue的第一个项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mjj",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.5.16"
+  }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			color: #fff;
+		}
+		.main{
+			width: 100%;
+		}
+		.head{
+			width: 100%;
+			height: 70px;
+			background-color: purple;
+			text-align: center;
+			
+			font-size: 20px;
+			line-height: 70px;
+		}
+		.wrap{
+			width: 100%;
+			height: 1200px;
+
+		}
+		.wrap .aside{
+			width: 30%;
+			height: 1200px;
+			background-color: green;
+			float: left;
+		}
+		.wrap .content{
+			width: 70%;
+			height:1200px;
+			background-color:yellow;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+
+	</div>
+	<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+
+		// 打油诗: 先声子 挂子 用子
+		// 1.先声明头部组件
+		var Vheader = {
+			template:`
+				<header class='head'>
+					我是头部
+					<span>{{count}}</span>
+					<button @click = 'count+=1'>点击</button>
+				</header>
+			`,
+			data(){
+				return {
+					count: 0
+				}
+			},
+			methods:{
+				
+			}
+		};
+
+		var Vaside = {
+			template:`
+				<div class='aside'>
+					我是侧边栏
+				</div>
+			`
+		};
+		var Vcontent = {
+			template:`
+				<div class='content'>
+					我是内容区域
+				</div>
+			`
+		}
+
+
+
+		// 1.声明入口组件
+
+		/*
+			1.头部组件
+			2.侧边栏
+			3.内容组件
+			4.脚步组件
+
+		*/
+		// 局部组件 我是入口组件
+		var Vmain = {
+			template:`
+				<div class='main'>
+					<Vheader></Vheader>
+					<div class='wrap'>
+						<Vaside />
+						<Vcontent />
+					</div>
+				</div>
+
+			`,
+			components:{
+				// 等价于Vheader:Vheader 2.挂载子
+				Vheader,
+				Vaside,
+				Vcontent
+			}
+		}
+		
+		new Vue({
+			el:"#app",
+			// 3.使用子组件
+			template:`<Vmain />`, //入口组件
+			data:{
+
+			},
+			components:{
+				// 2.挂载子组件  key表示组件名 value:组件对象
+				Vmain:Vmain
+			}
+		});
+	</script>
+	
+</body>
+</html>
